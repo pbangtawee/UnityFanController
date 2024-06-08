@@ -1,27 +1,28 @@
 #include <ArduinoJson.h>
 
 #ifdef __cplusplus
-extern "C" {
-  #endif
-  uint8_t temprature_sens_read();
-  #ifdef __cplusplus
+extern "C"
+{
+#endif
+    uint8_t temprature_sens_read();
+#ifdef __cplusplus
 }
 #endif
 
 uint8_t temprature_sens_read();
 
-const int FAN_PWM = 20;
-const int FAN_PIN = 21;
-const int LED_PIN[] = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+const int FAN_PWM = 4;
+const int FAN_PIN = 16;
+const int LED_PIN[] = {17, 16, 13, 12, 14, 27, 26, 25, 33, 32};
 
 // constant value
 const int MIN_RPM = 0;
 const int MAX_RPM = 6000;
 
-int FAN_RPM;       // output fan speed
-float CORE_TEMP;   // output core temp
-int CONTROL_RPM;   // input fan speed
-int CONTROL_LIGHT; // input light
+int FAN_RPM;           // output fan speed
+float CORE_TEMP;       // output core temp
+int CONTROL_RPM = 0;   // input fan speed
+int CONTROL_LIGHT = 0; // input light
 
 // PWM Setting
 const int CHANNEL = 0;
@@ -35,8 +36,8 @@ unsigned long LAST_SEND;
 void setup()
 {
     Serial.begin(115200);
+    Serial2.begin(115200);
 
-    pinMode(FAN_PIN, OUTPUT);
     for (int i = 0; i < 10; i++)
     {
         pinMode(LED_PIN[i], OUTPUT);
@@ -45,6 +46,9 @@ void setup()
 
     ledcSetup(CHANNEL, FREQUENCY, RESOLUTION);
     ledcAttachPin(FAN_PIN, CHANNEL);
+
+    // Migration to IDE 3.0
+    // ledcAttach(FAN_PIN, FREQUENCY, RESOLUTION);
 }
 
 void loop()

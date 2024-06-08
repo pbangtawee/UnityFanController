@@ -10,6 +10,8 @@ void dataIncoming()
 
     CONTROL_RPM = JSON_DOC["speed"];
     CONTROL_LIGHT = JSON_DOC["lights"];
+
+    Serial2.println("Input data :: " + CONTROL_RPM + " RPM. and " + CONTROL_LIGHT + " LEDs.");
 }
 
 void dataOutgoing(int rpm, float coreTemp)
@@ -21,4 +23,7 @@ void dataOutgoing(int rpm, float coreTemp)
 
     serializeJson(JSON_DOC, Serial);
     Serial.println();
+
+    Serial2.print("Send : ");
+    Serial2.println(JSON_DOC);
 }
