@@ -1,19 +1,15 @@
-int fanSpeed()
-{
-    int rawSpeed = 0;
+int fanSpeed() {
+  int fanSpeed;
+  fanSpeed = map(CONTROL_RPM, 0, 100, 800, 3000);
+  
+  // fanSpeed = (PULSE_COUNT * 60) / 2; // (PulsePerSec * 60Sec = RPM)/2PulsePerRound
+  // PULSE_COUNT = 0;
 
-    for (int i = 0; i < 5; i++)
-    {
-        rawSpeed += analogRead(FAN_PWM);
-    }
-
-    rawSpeed = rawSpeed / 5;
-    return rawSpeed;
+  return fanSpeed;
 }
 
-float coreTemp()
-{
-    float temp = (temprature_sens_read() - 32) / 1.8;
+float coreTemp() {
+  float temp = (temprature_sens_read() - 32) / 1.8;
 
-    return temp;
+  return temp;
 }

@@ -3,27 +3,24 @@ void dataIncoming()
     String INCOMING_JSON = "";
 
     INCOMING_JSON = Serial.readStringUntil('\n');
-    Serial.println("data: " + INCOMING_JSON);
+    // Serial.println("data: " + INCOMING_JSON);
 
-    JsonDocument JSON_DOC;
-    deserializeJson(JSON_DOC, INCOMING_JSON);
+    JsonDocument JSON_IN;
+    deserializeJson(JSON_IN, INCOMING_JSON);
 
-    CONTROL_RPM = JSON_DOC["speed"];
-    CONTROL_LIGHT = JSON_DOC["lights"];
-
-    Serial2.println("Input data :: " + CONTROL_RPM + " RPM. and " + CONTROL_LIGHT + " LEDs.");
+    CONTROL_RPM = JSON_IN["speed"];
+    CONTROL_LIGHT = JSON_IN["lights"];
 }
 
 void dataOutgoing(int rpm, float coreTemp)
 {
-    JsonDocument JSON_DOC;
+    JsonDocument JSON_OUT;
 
-    JSON_DOC["speed"] = rpm;
-    JSON_DOC["temp"] = coreTemp;
+    JSON_OUT["speed"] = rpm;
+    JSON_OUT["temp"] = coreTemp;
 
-    serializeJson(JSON_DOC, Serial);
+    serializeJson(JSON_OUT, Serial);
     Serial.println();
-
-    Serial2.print("Send : ");
-    Serial2.println(JSON_DOC);
 }
+
+// {"speed":0,"lights":0}
