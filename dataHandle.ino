@@ -3,7 +3,6 @@ void dataIncoming()
     String INCOMING_JSON = "";
 
     INCOMING_JSON = Serial.readStringUntil('\n');
-    // Serial.println("data: " + INCOMING_JSON);
 
     JsonDocument JSON_IN;
     deserializeJson(JSON_IN, INCOMING_JSON);
@@ -22,5 +21,3 @@ void dataOutgoing(int rpm, float coreTemp)
     serializeJson(JSON_OUT, Serial);
     Serial.println();
 }
-
-// {"speed":0,"lights":0}

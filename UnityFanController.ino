@@ -19,10 +19,10 @@ const int LED_PIN[] = {18, 19, 13, 12, 14, 27, 26, 25, 33, 32};
 const int MIN_RPM = 0;
 const int MAX_RPM = 3000;
 
-int FAN_RPM;           // output fan speed
-int CORE_TEMP;       // output core temp
-int CONTROL_RPM = 0;   // input fan speed
-int CONTROL_LIGHT = 0; // input light
+int FAN_RPM;             // output fan speed
+int CORE_TEMP;           // output core temp
+int CONTROL_PERCENT = 0; // input fan speed
+int CONTROL_LIGHT = 0;   // input light
 volatile int PULSE_COUNT = 0;
 
 // PWM Setting
@@ -59,9 +59,6 @@ void setup()
   fanControl(CONTROL_RPM);
   lightControl(CONTROL_LIGHT);
 
-  // Migration to IDE 3.0
-  // ledcAttach(FAN_PIN, FREQUENCY, RESOLUTION);
-
   LAST_SEND = millis();
 }
 
@@ -70,7 +67,7 @@ void loop()
   if (Serial.available() > 0)
   {
     dataIncoming();
-    fanControl(CONTROL_RPM);
+    fanControl(CONTROL_PERCENT);
     lightControl(CONTROL_LIGHT);
   }
 

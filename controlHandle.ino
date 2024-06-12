@@ -1,10 +1,7 @@
-void fanControl(int rpm)
+void fanControl(int percent)
 {
-    int FAN_OUTPUT = map(rpm, 0, 100, 255, 0);
+    int FAN_OUTPUT = map(percent, 0, 100, 255, 0);
     ledcWrite(CHANNEL, FAN_OUTPUT);
-
-    // for IDE 3.0 use
-    // ledcWrite(FAN_PIN, FAN_OUTPUT);
 }
 
 void lightControl(int numLight)
