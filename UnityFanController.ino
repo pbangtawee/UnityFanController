@@ -73,7 +73,6 @@ void loop()
 
   if (millis() - LAST_SEND >= INTERVAL * 1000)
   {
-
     detachInterrupt(FAN_PULSE);
 
     FAN_RPM = fanSpeed();
